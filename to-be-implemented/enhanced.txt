@@ -1,0 +1,15 @@
+List of the features to be implemented or enhanced. 
+
+F-0001. When user logins, and credentials are wrong. Show that wrong credentials. 
+F-0002. Dynamic updation of categories. 
+F-0003. Add option to edit and delete expenses. 
+F-0004. Show total of the items category wise. 
+F-0005. Add option for the user to view expenses per month. 
+F-0006. Add option to forget password on login page, change password. 
+F-0007. Build visualize trend section of the app. 
+F-0008. Buiild net worth section of the app. 
+F-0009. Enhance the look and feel of the homepage of the app. 
+F-0010. Fix the empty option showing in categories. 
+F-0011. Add button on track expenses page to directly view tracked expenses. 
+F-0012. Give a feedback to the user if the expenses entry is successfull on track page.
+F-0013. Fix the condition when first name or last name are empty, profile page crashes0
