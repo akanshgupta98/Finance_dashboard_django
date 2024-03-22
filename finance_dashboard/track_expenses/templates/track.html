@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Track Expenses - Finance App</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+    <!-- Bootstrap Icons CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.18.1/font/bootstrap-icons.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .navbar {
+            background-color: #343a40;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .track-expenses-container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+
+        .track-expenses-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            font-weight: bold;
+            color: #343a40;
+        }
+
+        .form-control {
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            padding: 10px;
+        }
+
+        .submit-btn {
+            background-color: #343a40;
+            border: 1px solid #343a40;
+            padding: 10px 20px;
+            color: #ffffff;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .submit-btn:hover {
+            background-color: #495057;
+            border: 1px solid #495057;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navigation Bar -->
+{% include "navbar.html" %}
+<!-- Track Expenses Container -->
+<div class="container track-expenses-container">
+    <div class="track-expenses-header">
+        <h2>Track Expenses</h2>
+        <p>Record your expenses to stay on top of your budget.</p>
+    </div>
+    <form method="post" action=".">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="expenseAmount" class="form-label">Expense Amount</label>
+            <input type="number" class="form-control" id="expenseAmount" name="expenseAmount" placeholder="Enter expense amount" required>
+        </div>
+
+        <div class="form-group">
+            <label for="expenseName" class="form-label">Expense Name</label>
+            <input type="text" class="form-control" id="expenseName" name="expenseName" placeholder="Enter expense name" required>
+        </div>
+        
+        <div class="form-group">
+            
+            <label for="expenseCategory" class="form-label">Expense Category</label>
+            <select class="form-control" id="expenseCategory" name="expenseCategory" required>
+                
+                <option value="" disabled selected>Select category</option>
+                
+                {% for key, value in form.fields.expenseCategory.choices %}
+                    <option value={{key}}>{{key}}</option>
+                {%endfor%}
+                <!-- <option value="other">Other (Add New Category)</option> -->
+                <!-- <option value="Add Category">Add Category</option> -->
+                <!-- Add more options as needed -->
+            </select>
+        </div>
+        <div class="form-group" id="newCategoryInput" style="display: none;">
+            <label for="newCategory" class="form-label">New Category:</label>
+            <input type="text" id="newCategory" class="form-control" name="new_category">
+        </div>
+        <div class="form-group" >
+            <label for="expenseDate" class="form-label">Expense Date</label>
+            <input type="date" class="form-control" id="expenseDate" name="expenseDate" placeholder="Enter expense Date" required>
+            <button type="button" onclick="setCurrentDate()">Set Current Date</button>
+        </div>
+        <button type="submit" class="btn btn-primary submit-btn">Submit</button>
+    </form>
+</div>
+
+<script>
+    function setCurrentDate() {
+        // Get the current date
+        var currentDate = new Date();
+
+        // Format the date as YYYY-MM-DD
+        var year = currentDate.getFullYear();
+        var month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+        var day = currentDate.getDate().toString().padStart(2, '0');
+        var formattedDate = year + '-' + month + '-' + day;
+
+        // Set the input value to the current date
+        document.getElementById('expenseDate').value = formattedDate;
+    }
+</script>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.getElementById('expenseCategory').addEventListener('change', function() {
+        var categorySelect = document.getElementById('expenseCategory');
+        var newCategoryInput = document.getElementById('newCategoryInput');
+        
+        if (categorySelect.value === 'Other') {
+            newCategoryInput.style.display = 'block';
+        } else {
+            newCategoryInput.style.display = 'none';
+        }
+    });
+</script>
+</body>
+</html>
