@@ -43,34 +43,14 @@
 <body>
 
 <!-- Navigation Bar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container">
-        <a class="navbar-brand" href="#">Finance App</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="home/">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="about/">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Contact</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
+{% include "navbar.html" %}
 <!-- Hero Section -->
 <div class="container hero-section">
     <h1 class="display-4">Take Control of Your Finances</h1>
     <p class="lead">Manage your money with ease using our personal finance app.</p>
+    {%if not user.is_authenticated %}
     <a class="btn btn-primary btn-lg" href="login/" role="button">Get Started</a>
+    {%endif%}
 </div>
 
 <!-- Features Section -->
@@ -85,19 +65,33 @@
                 </div>
             </a>
         </div>
+        
         <div class="col-md-4">
-            <div class="feature-card text-center">
-                <i class="bi bi-graph-up fs-1 text-primary"></i>
-                <h3 class="mt-3">Visualize Trends</h3>
-                <p>Visualize your spending trends with intuitive charts.</p>
-            </div>
+            <a href = "view-expenses/" class="feature-link">
+                <div class="feature-card text-center">
+                    <i class="bi bi-wallet2 fs-1 text-primary"></i>
+                    <h3 class="mt-3">View Expenses</h3>
+                    <p>Effortlessly view your expenses and stay on budget.</p>
+                </div>
+            </a>
         </div>
         <div class="col-md-4">
-            <div class="feature-card text-center">
-                <i class="bi bi-check-circle fs-1 text-primary"></i>
-                <h3 class="mt-3">Achieve Goals</h3>
-                <p>Set financial goals and track your progress.</p>
-            </div>
+            <a href = "visualize-trends/" class="feature-link">
+                <div class="feature-card text-center">
+                    <i class="bi bi-graph-up fs-1 text-primary"></i>
+                    <h3 class="mt-3">Visualize Trends</h3>
+                    <p>Visualize your spending trends with intuitive charts.</p>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-4">
+            <a href = "net-worth/" class="feature-link">
+                <div class="feature-card text-center">
+                    <i class="bi bi-check-circle fs-1 text-primary"></i>
+                    <h3 class="mt-3">Net Worth</h3>
+                    <p>Discover Your Financial Standing: Calculate Your Net Worth.</p>
+                </div>
+            </a>
         </div>
     </div>
 </div>
