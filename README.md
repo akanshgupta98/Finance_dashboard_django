@@ -31,14 +31,18 @@ git clone https://github.com/akanshgupta98/Finance_dashboard_django.git
   ```
 
 3. **Create Superuser:**
-python manage.py createsuperuser
 
+  ```
+    python manage.py createsuperuser
+  ```
 
 4. **Run the Development Server:**
+```
 python manage.py runserver
+```
 
 
-5. **Access the App:**
+6. **Access the App:**
 Once the development server is running, open your web browser and go to `http://localhost:8000` to access the Finance App.
 
 ### Contributing
