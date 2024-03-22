@@ -64,6 +64,31 @@
         .signup-link a:hover {
             color: #495057;
         }
+
+        .invalid-message {
+            position: relative;
+            padding: 10px;
+            border: 1px solid #a59f9e; /* Red border */
+            border-radius: 5px;
+            margin-bottom: 20px;
+            margin-top:20px;
+            color: #000000; /* Black text color */
+        }
+
+        .timer-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px; /* Adjust the height of the timer bar */
+            background-color: #dc3545; /* Red color */
+            animation: slide-out 3s forwards;
+        }
+
+        @keyframes slide-out {
+            0% { width: 100%; }
+            100% { width: 0; }
+        }
     </style>
 </head>
 <body>
@@ -85,10 +110,18 @@
             <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
         </div>
         <button type="submit" class="btn btn-primary login-btn">Login</button>
+        
     </form>
+    {% if form.errors %}
+        <div class="invalid-message">
+            <div class="timer-bar"></div>
+            Invalid Credentials.
+        </div>
+    {% endif %}
     <div class="signup-link">
         <p>Don't have an account? <a href="/signup/">Sign up here</a></p>
     </div>
+ 
 </div>
 
 <!-- Bootstrap JS -->
