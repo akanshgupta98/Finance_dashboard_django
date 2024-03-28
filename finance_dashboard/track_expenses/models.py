@@ -21,11 +21,6 @@ class Expense(models.Model):
         (OTHER_CHOICE, "Other"),
         
     ]
-    # CATEGORY_IN_EXPENSE_CHOICES = [
-    #     ("OTHER_CHOICE", "Other"),
-        
-    # ]
-
     
     user            = models.ForeignKey(User,on_delete = models.CASCADE,default=1)
     expenseName     = models.TextField()

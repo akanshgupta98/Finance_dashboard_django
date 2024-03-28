@@ -30,6 +30,7 @@ urlpatterns = [
     path('logout/',logout_page),
     path('profile/',profile_page),
     path('view-expenses/',expenses_page),
-    path('visualize-trends/',visual_trends_page)
+    path('visualize-trends/',visual_trends_page),
+    path('edit-expenses/<int:expense_id>',edit_expenses_page)
 
 ]

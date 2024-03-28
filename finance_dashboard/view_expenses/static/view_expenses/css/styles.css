@@ -1,0 +1,72 @@
+body {
+    background-color: #f8f9fa;
+    font-family: 'Arial', sans-serif;
+}
+
+.navbar {
+    background-color: #343a40;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.expenses-container {
+    max-width: 800px;
+    margin: 50px auto;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+}
+
+.expenses-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.expense-month {
+    margin-bottom: 30px;
+}
+
+.month-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.expense-card {
+    position: relative;
+    border: 1px solid #dee2e6;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out;
+}
+
+.expense-card:hover .expense-actions {
+    transform: translateX(0);
+}
+
+.expense-actions {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 100%;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: width 0.3s ease-in-out;
+    overflow: hidden;
+}
+
+.expense-actions button {
+    width: 50%;
+    height: 100%;
+    padding: 0.5rem;
+}
+
+.show-actions .expense-actions {
+    width: 120px;
+}

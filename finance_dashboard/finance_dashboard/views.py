@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.db.models import Q
 from django.utils import timezone
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect, get_object_or_404
 from track_expenses.forms import (
     SignUpForm,
     LoginForm,
@@ -27,29 +27,6 @@ def logout_page(request):
     logout(request)
     return redirect("/")
 
-# def login_page(request):
-#     loginForm = LoginForm(request.POST or None)
-
-#     if loginForm.is_valid():
-#         loginFormData = {
-#             "username" : loginForm.cleaned_data['username'],
-#             "password" : loginForm.cleaned_data['password']
-#         }
-
-#         authenticated_user = authenticate(request,**loginFormData)
-#         if authenticated_user is not None:
-#             login(request,authenticated_user)
-#             return redirect("/")
-        
-#         else:
-#             print("LOGIN FAILED")
-    
-#     context = {"login_form":loginForm}
-        
-        
-
-#     return render(request,"login.html",context)
-
 def about_page(request):
     return render(request,"about.html")
 
@@ -63,10 +40,12 @@ def track_page(request):
     # context = {"choices":expenseForm.CATEGORY_IN_EXPENSE_CHOICES}
 
     if expenseForm.is_valid():
+        print('track data is: ',expenseForm.cleaned_data)
         expenses = expenseForm.save(commit=False)
         expenses.user = request.user
         
         expenses.save()
+        print('data is updated',expenses)
     
     else:
         print(expenseForm.errors)
@@ -109,7 +88,7 @@ def signup_page(request):
 def profile_page(request):
     return render(request,"profile.html")
 
-# @login_required('/login/')
+@login_required(login_url='/login/')
 def expenses_page(request):
     print("REQUEST IS",request)
     current_month = timezone.now().month
@@ -118,12 +97,33 @@ def expenses_page(request):
     qs = Expense.objects.filter(
         Q(expenseDate__month=current_month, expenseDate__year=current_year) & Q(user=request.user)
     )
+    print('QS is: ',qs)
     monthly_expense = 0
     for expense in qs:
         monthly_expense += expense.expenseAmount
     context = {"object":qs,"monthly_expense":monthly_expense}
-    print(qs.first().expenseDate.strftime("%b"))
     return render(request,"view_expenses.html",context)
 
 def visual_trends_page(request):
     return render(request,"visualize_trends.html")
+
+def edit_expenses_page(request,expense_id):
+
+    qs = get_object_or_404(Expense,id=expense_id)
+    expenseForm = TrackExpenseModelForm(request.POST or None,instance=qs)
+
+    print('query set: ',qs.expenseAmount)
+
+    if expenseForm.is_valid():
+        expenses = expenseForm.save(commit=False)
+        expenses.user = request.user
+        
+        expenses.save()
+
+    else:
+        print(expenseForm.errors)
+    
+    context = {"data":qs,"form":expenseForm}
+
+    return render(request, "track.html",context)
+
